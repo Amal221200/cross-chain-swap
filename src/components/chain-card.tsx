@@ -7,7 +7,6 @@ import { usePingPong } from "./providers/ping-pong/ping-pong-provider";
 import { formatUnits } from "viem";
 import { Skeleton } from "./ui/skeleton";
 import { ChainDirection, useEquito } from "./providers/equito/equito-provider";
-import { useEffect, useState } from "react";
 
 type ChainCardProps = {
   mode: ChainDirection;
@@ -19,13 +18,16 @@ export const ChainCard = ({ mode }: ChainCardProps) => {
   const { address } = useAccount();
   const { chain } = useEquito()[mode];
 
-  const onInput = (value: string) => {
-    if (mode === "from") {
-      setPingMessage(value)
-    }
-  }
+
+
+  const onInput = mode === "from" ? setPingMessage : undefined;
   const cardTitle = `${mode === "from" ? "Source" : "Destination"} Chain`;
-  const [value, setValue] = useState("");
+  const value =
+    mode === "from"
+      ? pingMessage
+      : pongMessage
+        ? pongMessage
+        : "Waiting for ping...";
   const label = `${mode === "from" ? "Ping" : "Pong"} Message`;
 
   const nativeCurrency = chain?.definition.nativeCurrency.symbol;
@@ -35,10 +37,6 @@ export const ChainCard = ({ mode }: ChainCardProps) => {
 
   const isProcessing =
     status !== "isIdle" && status !== "isError" && status !== "isSuccess";
-
-  useEffect(() => {
-    setValue((mode === "from" ? pingMessage : pongMessage ? pongMessage : "Waiting for ping...") ?? "")
-  }, [pingMessage, pongMessage, mode])
 
   return (
     <Card>
@@ -70,7 +68,7 @@ export const ChainCard = ({ mode }: ChainCardProps) => {
                 id="ping"
                 value={value}
                 placeholder="Enter your amount..."
-                onChange={({ target: { value } }) => onInput(value)}
+                onChange={({ target: { value } }) => onInput?.(value)}
                 readOnly={mode === "to" || isProcessing}
                 disabled={mode === "to" || isProcessing}
                 variant={mode === "to" ? "readonly" : "default"}

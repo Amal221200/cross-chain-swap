@@ -92,7 +92,6 @@ export const useExecutePingPong = () => {
           eventName === "MessageSendRequested" ? [args] : []
         )[0];
 
-        console.log("sentPongMessage", sentPongMessage);
         if (!sentPongMessage) {
           throw new Error("MessageSendRequested event not found");
         }
@@ -123,7 +122,7 @@ export const useExecutePingPong = () => {
           sentPongMessage.message,
           sentPongMessage.messageData
         );
-        setStatus("isSuccess");        
+        setStatus("isSuccess");
       } catch (error) {
         setStatus("isError");
         throw error;

@@ -53,6 +53,7 @@ export const useSendPing = () => {
     try {
       // make sure we are on the from chain
       await switchChainAsync({ chainId: from.chain.definition.id });
+console.log(pingMessage);
 
       const hash = await writeContractAsync({
         address: from.chain.pingPongContract,
