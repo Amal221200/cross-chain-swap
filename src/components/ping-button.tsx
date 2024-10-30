@@ -28,6 +28,13 @@ export const PingButton = () => {
     pongFee.isLoading;
 
   const onClick = () => {
+    const value = Number(pingMessage ?? "");
+    if (isNaN(value)) {
+      return toast.warning("Invalid value, please enter a valid amount")
+    }
+    if (value > 50) {
+      return toast.warning("Invalid value, you can only transfer at most 50 tokens")
+    }
     toast.promise(execute(), {
       loading: "Executing transaction...",
       success: "Transaction successful!",

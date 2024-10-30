@@ -25,7 +25,7 @@ export const AppProvider = ({ children }: React.PropsWithChildren<object>) => (
         <EquitoProvider>
           <PingPongProvider>
             {children}
-            <Toaster />
+            <Toaster richColors />
           </PingPongProvider>
         </EquitoProvider>
       </RainbowKitProvider>
