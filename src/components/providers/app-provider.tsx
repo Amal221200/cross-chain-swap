@@ -5,7 +5,6 @@ import { RainbowKitProvider, midnightTheme } from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { wagmiConfig } from "@/lib/wagmi";
-import { Toaster } from "@/components/ui/sonner";
 import { PingPongProvider } from "./ping-pong/ping-pong-provider";
 import { EquitoProvider } from "./equito/equito-provider";
 
@@ -25,7 +24,6 @@ export const AppProvider = ({ children }: React.PropsWithChildren<object>) => (
         <EquitoProvider>
           <PingPongProvider>
             {children}
-            <Toaster richColors />
           </PingPongProvider>
         </EquitoProvider>
       </RainbowKitProvider>

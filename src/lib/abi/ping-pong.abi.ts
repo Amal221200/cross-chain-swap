@@ -3,6 +3,65 @@ export const pingPongAbi = [
 		"inputs": [
 			{
 				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "bytes32",
+						"name": "lower",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "upper",
+						"type": "bytes32"
+					}
+				],
+				"internalType": "struct bytes64",
+				"name": "receiver",
+				"type": "tuple"
+			},
+			{
+				"internalType": "uint256",
+				"name": "destinationChainSelector",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "crossChainTransfer",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
 				"name": "_router",
 				"type": "address"
 			},
@@ -171,6 +230,87 @@ export const pingPongAbi = [
 		"type": "error"
 	},
 	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "blockNumber",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "sourceChainSelector",
+						"type": "uint256"
+					},
+					{
+						"components": [
+							{
+								"internalType": "bytes32",
+								"name": "lower",
+								"type": "bytes32"
+							},
+							{
+								"internalType": "bytes32",
+								"name": "upper",
+								"type": "bytes32"
+							}
+						],
+						"internalType": "struct bytes64",
+						"name": "sender",
+						"type": "tuple"
+					},
+					{
+						"internalType": "uint256",
+						"name": "destinationChainSelector",
+						"type": "uint256"
+					},
+					{
+						"components": [
+							{
+								"internalType": "bytes32",
+								"name": "lower",
+								"type": "bytes32"
+							},
+							{
+								"internalType": "bytes32",
+								"name": "upper",
+								"type": "bytes32"
+							}
+						],
+						"internalType": "struct bytes64",
+						"name": "receiver",
+						"type": "tuple"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "hashedData",
+						"type": "bytes32"
+					}
+				],
+				"internalType": "struct EquitoMessage",
+				"name": "message",
+				"type": "tuple"
+			},
+			{
+				"internalType": "bytes",
+				"name": "messageData",
+				"type": "bytes"
+			}
+		],
+		"name": "receiveMessage",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "RouterAddressCannotBeZero",
 		"type": "error"
@@ -296,6 +436,60 @@ export const pingPongAbi = [
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "chainSelectors",
+				"type": "uint256[]"
+			},
+			{
+				"components": [
+					{
+						"internalType": "bytes32",
+						"name": "lower",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "upper",
+						"type": "bytes32"
+					}
+				],
+				"internalType": "struct bytes64[]",
+				"name": "addresses",
+				"type": "tuple[]"
+			}
+		],
+		"name": "setPeers",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -319,6 +513,55 @@ export const pingPongAbi = [
 		],
 		"name": "Transfer",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "transferToken",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [
@@ -348,30 +591,6 @@ export const pingPongAbi = [
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "approve",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
@@ -388,38 +607,16 @@ export const pingPongAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "bytes32",
-						"name": "lower",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "bytes32",
-						"name": "upper",
-						"type": "bytes32"
-					}
-				],
-				"internalType": "struct bytes64",
-				"name": "receiver",
-				"type": "tuple"
-			},
+		"inputs": [],
+		"name": "COOLDOWN_PERIOD",
+		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "destinationChainSelector",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "crossChainTransfer",
-		"outputs": [],
-		"stateMutability": "payable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -461,6 +658,25 @@ export const pingPongAbi = [
 				"internalType": "struct bytes64",
 				"name": "",
 				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "lastWithdraw",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -517,117 +733,6 @@ export const pingPongAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "blockNumber",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "sourceChainSelector",
-						"type": "uint256"
-					},
-					{
-						"components": [
-							{
-								"internalType": "bytes32",
-								"name": "lower",
-								"type": "bytes32"
-							},
-							{
-								"internalType": "bytes32",
-								"name": "upper",
-								"type": "bytes32"
-							}
-						],
-						"internalType": "struct bytes64",
-						"name": "sender",
-						"type": "tuple"
-					},
-					{
-						"internalType": "uint256",
-						"name": "destinationChainSelector",
-						"type": "uint256"
-					},
-					{
-						"components": [
-							{
-								"internalType": "bytes32",
-								"name": "lower",
-								"type": "bytes32"
-							},
-							{
-								"internalType": "bytes32",
-								"name": "upper",
-								"type": "bytes32"
-							}
-						],
-						"internalType": "struct bytes64",
-						"name": "receiver",
-						"type": "tuple"
-					},
-					{
-						"internalType": "bytes32",
-						"name": "hashedData",
-						"type": "bytes32"
-					}
-				],
-				"internalType": "struct EquitoMessage",
-				"name": "message",
-				"type": "tuple"
-			},
-			{
-				"internalType": "bytes",
-				"name": "messageData",
-				"type": "bytes"
-			}
-		],
-		"name": "receiveMessage",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "chainSelectors",
-				"type": "uint256[]"
-			},
-			{
-				"components": [
-					{
-						"internalType": "bytes32",
-						"name": "lower",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "bytes32",
-						"name": "upper",
-						"type": "bytes32"
-					}
-				],
-				"internalType": "struct bytes64[]",
-				"name": "addresses",
-				"type": "tuple[]"
-			}
-		],
-		"name": "setPeers",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "symbol",
 		"outputs": [
@@ -651,72 +756,6 @@ export const pingPongAbi = [
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "transfer",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "transferFrom",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ] as const;

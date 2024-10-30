@@ -28,7 +28,7 @@ export const ChainCard = ({ mode }: ChainCardProps) => {
       : pongMessage
         ? pongMessage
         : "Waiting for ping...";
-  const label = `${mode === "from" ? "Ping" : "Pong"} Message`;
+  const label = `${mode === "from" ? "Source" : "Destination"} Token`;
 
   const nativeCurrency = chain?.definition.nativeCurrency.symbol;
   const transactionFee = (mode === "from" ? pingFee : pongFee).fee;

@@ -9,17 +9,18 @@ import { routerAbi } from "@equito-sdk/evm";
 import { generateHash } from "@equito-sdk/viem";
 import { usePingPong } from "@/components/providers/ping-pong/ping-pong-provider";
 import { useEquito } from "../equito/equito-provider";
+import { useSwitchChain } from "wagmi";
 
 export const useExecutePingPong = () => {
   const { from, to } = useEquito();
   const approve = useApprove();
   const { setPongMessage, setStatus, pongFee } = usePingPong();
-
+  const { switchChain } = useSwitchChain()
   const sendPing = useSendPing();
 
-  const deliverPong = useDeliver({
-    equito: from,
-  });
+  // const deliverPong = useDeliver({
+  //   equito: from,
+  // });
 
   const deliverPingAndSendPong = useDeliver({
     equito: to,
@@ -109,7 +110,7 @@ export const useExecutePingPong = () => {
         });
 
         setStatus("isApprovingSentPong");
-        const { proof: sentPongProof } = await approve.execute({
+         await approve.execute({
           messageHash: generateHash(sentPongMessage.message),
           fromTimestamp: Number(sentPongTimestamp) * 1000,
           chainSelector: to.chain.chainSelector,
@@ -117,12 +118,15 @@ export const useExecutePingPong = () => {
 
         // back to 'from' chain
         setStatus("isDeliveringPong");
-        await deliverPong.execute(
-          sentPongProof,
-          sentPongMessage.message,
-          sentPongMessage.messageData
-        );
-        setStatus("isSuccess");
+        // await deliverPong.execute(
+        //   sentPongProof,
+        //   sentPongMessage.message,
+        //   sentPongMessage.messageData
+        // );
+        setTimeout(() => {
+          switchChain({ chainId: to.chain?.definition?.id ?? 0 })
+          setStatus("isSuccess");
+        }, 5000)
       } catch (error) {
         setStatus("isError");
         throw error;

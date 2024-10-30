@@ -1,13 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import App from "./pages/App.tsx";
 import "./index.css";
-import ThemeProvider from "./components/providers/theme-provider.tsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import Faucet from "./pages/Faucet.tsx";
+import MainLayout from "./layouts/MainLayout.tsx";
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <MainLayout />,
+    children: [
+      {
+        path: '/',
+        element: <App />
+      },
+
+      {
+        path: "/faucet",
+        element: <Faucet />
+      }
+    ]
+  }
+])
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="cross-chain-swap-theme">
-    <App />
-    </ThemeProvider>
+      <RouterProvider router={router} />
   </React.StrictMode>
 );
