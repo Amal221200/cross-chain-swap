@@ -15,12 +15,8 @@ export const useExecutePingPong = () => {
   const { from, to } = useEquito();
   const approve = useApprove();
   const { setPongMessage, setStatus, pongFee } = usePingPong();
-  const { switchChain } = useSwitchChain()
+  const { switchChainAsync } = useSwitchChain()
   const sendPing = useSendPing();
-
-  // const deliverPong = useDeliver({
-  //   equito: from,
-  // });
 
   const deliverPingAndSendPong = useDeliver({
     equito: to,
@@ -99,8 +95,9 @@ export const useExecutePingPong = () => {
 
         const [, pong] = decodeAbiParameters(
           parseAbiParameters("string, uint256"),
-          sentPingMessage.messageData
+          sentPongMessage.messageData
         );
+
 
         setPongMessage(pong.toString());
 
@@ -110,7 +107,7 @@ export const useExecutePingPong = () => {
         });
 
         setStatus("isApprovingSentPong");
-         await approve.execute({
+        await approve.execute({
           messageHash: generateHash(sentPongMessage.message),
           fromTimestamp: Number(sentPongTimestamp) * 1000,
           chainSelector: to.chain.chainSelector,
@@ -121,10 +118,11 @@ export const useExecutePingPong = () => {
         // await deliverPong.execute(
         //   sentPongProof,
         //   sentPongMessage.message,
-        //   sentPongMessage.messageData
+        //   sentPongMessage.messageData,
+        //   pongFee.fee
         // );
-        setTimeout(() => {
-          switchChain({ chainId: to.chain?.definition?.id ?? 0 })
+        setTimeout(async () => {
+          await switchChainAsync({ chainId: to.chain?.definition?.id ?? 0 })
           setStatus("isSuccess");
         }, 5000)
       } catch (error) {
